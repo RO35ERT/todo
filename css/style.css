@@ -212,6 +212,88 @@ a{
 }
 
 
+.edittask{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 500px;
+    background-color: var(--tertially-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    position: absolute;
+    top: 30px;
+    left:30vw;
+    visibility: hidden;
+}
+.edittask h1{
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+}
+
+.edittask span{
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+    position: absolute;
+    right: 35px;
+    top: -5px;
+}
+
+.edittask form{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+}
+
+.edittask form input[type="text"]{
+    border: none;
+    outline: none;
+    background-color: var(--tertially-color);
+    border: 1px solid var(--primary-color);
+    margin: 0 20px 10px;
+    height: 30px;
+    font-size: 20px;
+    text-indent: 4px;
+}
+.edittask select{
+    appearance: none;
+    border: none;
+    outline: none;
+    background-color: var(--tertially-color);
+    border: 1px solid var(--primary-color);
+    margin: 0 20px 10px;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: 'Poppins',Arial, Helvetica, sans-serif;
+    text-indent: 4px;
+}
+.edittask p{
+    margin: 0 20px 10px;
+    font-size: 16px;
+}
+.edittask button{
+    margin: 20px;
+    padding: 8px 0;
+    font-size: 18px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+.edittask button:hover{
+    border-radius: 6px;
+}
+
+.showedit{
+    visibility: visible;
+}
+.canceledit{
+    cursor: pointer;
+    color: var(--pending);
+}
 
 
 

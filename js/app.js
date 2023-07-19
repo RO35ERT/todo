@@ -100,16 +100,30 @@ const deletebtns = document.querySelectorAll('.delete');
 //     })
 // });
 
+editTask = document.querySelector('.edittask');
+editedtaskname = document.querySelector('#editedtaskname');
 tasktable.addEventListener('click',(e)=>{
     if(e.target.innerText=='delete'){
         const deleteEl = e.target.parentElement.parentElement.parentElement;
         tasktable.removeChild(deleteEl);
     }else if(e.target.innerText=='edit'){
         const editEl = e.target.parentElement.parentElement.parentElement;
-        addtask.classList.add('showtaskadd');
-        taskname.value=editEl.childNodes[1].innerText;
+        editTask.classList.add('showedit');
+        editedtaskname.value=editEl.childNodes[1].innerText;
         taskcategories.value=editEl.childNodes[2].nextElementSibling.innerText;
         console.log(editEl.childNodes[2].nextElementSibling.innerText);
         
     }
+})
+
+canceledit = document.querySelector('.canceledit');
+
+canceledit.addEventListener('click',()=>{
+    editTask.classList.remove('showedit')
+})
+
+save = document.querySelector('.save');
+
+save.addEventListener('click',(e)=>{
+    e.preventDefault();
 })
