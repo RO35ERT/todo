@@ -92,22 +92,18 @@ add.addEventListener('click',(e)=>{
 
 const deletebtns = document.querySelectorAll('.delete');
 
-// deletebtns.forEach(e => {
-//     e.addEventListener('click',()=>{
-//        const deletebtn = e.parentElement.parentElement;
-
-//        tasktable.removeChild(deletebtn);
-//     })
-// });
 
 editTask = document.querySelector('.edittask');
 editedtaskname = document.querySelector('#editedtaskname');
+let editEl;
+let parent;
 tasktable.addEventListener('click',(e)=>{
     if(e.target.innerText=='delete'){
         const deleteEl = e.target.parentElement.parentElement.parentElement;
         tasktable.removeChild(deleteEl);
     }else if(e.target.innerText=='edit'){
-        const editEl = e.target.parentElement.parentElement.parentElement;
+        editEl = e.target.parentElement.parentElement.parentElement;
+        parent = e.target.parentElement.parentElement.parentElement;
         editTask.classList.add('showedit');
         editedtaskname.value=editEl.childNodes[1].innerText;
         taskcategories.value=editEl.childNodes[2].nextElementSibling.innerText;
@@ -122,8 +118,37 @@ canceledit.addEventListener('click',()=>{
     editTask.classList.remove('showedit')
 })
 
-save = document.querySelector('.save');
+save = document.querySelector('.saveEditedTask');
 
+
+
+editedtaskcategories = document.querySelector('.editedtaskcategories');
 save.addEventListener('click',(e)=>{
     e.preventDefault();
+    editEl.childNodes[1].innerText=editedtaskname.value;
+    editEl.childNodes[2].nextElementSibling.innerText=editedtaskcategories.value;
+
+    editTask.classList.remove('showedit');
+
+    if(editedtaskcategories.value=='office'){
+        parent.style.backgroundColor = "#118111";
+        tdbtndelete.style.backgroundColor= "#118111";
+        tdbtnedit.style.backgroundColor="#118111";
+    }else if(editedtaskcategories.value=='school'){
+        parent.style.backgroundColor = "#ffff11";
+        tdbtndelete.style.backgroundColor= "#ffff11";
+        tdbtnedit.style.backgroundColor="#ffff11";
+    }else if(editedtaskcategories.value=='work'){
+        parent.style.backgroundColor = "#ff1111";
+        tdbtndelete.style.backgroundColor= "#ff1111";
+        tdbtnedit.style.backgroundColor="#ff1111";
+        tdbtnedit.style.color="#f1f1f1";
+        tdbtndelete.style.color="#f1f1f1";
+        tdt.style.color="#f1f1f1";
+        tdt1.style.color="#f1f1f1";
+    }else{
+
+    }
+
+    console.log(parent);
 })
