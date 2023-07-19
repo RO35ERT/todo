@@ -55,27 +55,72 @@
                             <input type="radio" name="filter" id="pending" value="pending">
                             <label for="pending">pending</label>
                         </div>
-                
                     </div>
+
+                    <button class="addtaskbtn">Add task</button>
                 </div>
 
                 <div class="tasks">
-                    <div class="taskheader">
+                    <table>
+                        <tbody class="tasktable">
+                            <tr>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
 
-                    </div>
-                    <div class="task">
-                        <div class="singletask">
-                            <p class="taskname">
-                                call hope before sleeping
-                            </p>
-                        </div>
+                            <tr>
+                                <td>call hope before sleeping</td>
+                                <td>office</td>
+                                <td><button class="edit">
+                                    <span class="material-symbols-outlined">
+                                        edit
+                                    </span>
+                                </button></td>
+                                <td><button class="delete">
+                                    <span class="material-symbols-outlined">
+                                        delete
+                                    </span>
+                                </button></td>
+                            </tr>
 
-                    </div>
+                            <tr>
+                                <td>call george before sleeping</td>
+                                <td>school</td>
+                                <td><button class="edit">
+                                    <span class="material-symbols-outlined">
+                                        edit
+                                    </span>
+                                </button></td>
+                                <td><button class="delete">
+                                    <span class="material-symbols-outlined">
+                                        delete
+                                    </span>
+                                </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
-        <div class="addTask">
-            addTask
+        <div class="addtask">
+            <h1>Task 
+                <span class="material-symbols-outlined canceladd">
+                x
+            </span></h1>
+            <form action="" method="post">
+                <p>enter task name</p>
+                <input type="text" name="taskname" id="taskname">
+                <p>select category</p>
+                <select name="taskcategories" id="taskcategories" class="taskcategories">
+                    <option value="office">office</option>
+                    <option value="school">school</option>
+                    <option value="work">work</option>
+                    <option value="misc">misc</option>
+                </select>
+                <button type="submit" class="add">Add</button>
+            </form>
         </div>
         <footer>
 

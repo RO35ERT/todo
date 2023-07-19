@@ -24,6 +24,10 @@ body{
     background-color: var(--tertially-color);
 }
 
+.container{
+    position: relative;
+}
+
 a{
     color: #010101;
     text-decoration: none;
@@ -74,10 +78,6 @@ a{
 .filters :not(span){
     font-size: 20px;
 }
-.tasks{
-    background-color: #118111;
-    width: 75%;
-}
 
 .filterbtns{
     margin: 10px auto;
@@ -88,5 +88,130 @@ a{
     align-items: center;
     gap: 5px;
 }
+
+.addtaskbtn{
+    padding: 8px 15px;
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    border: none;
+    transition: .5s;
+}
+.addtaskbtn:hover{
+    background-color: var(--tertially-color);
+    cursor: pointer;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.tasks{
+    width: 75%;
+    box-shadow: -1px 0 3px var(--primary-color);
+}
+
+.tasks table{
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.tasks td, 
+.tasks th {
+    text-align: left;
+    padding: 8px;
+  }
+
+.edit, .delete{
+    border: none;
+    background-color: var(--tertially-color);
+    cursor: pointer;
+}
+.delete{
+    color: var(--pending);
+}
+
+.addtask{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 500px;
+    background-color: var(--tertially-color);
+    box-shadow: 0 0 10px var(--primary-color);
+    position: absolute;
+    top: 30px;
+    left:30vw;
+    visibility: hidden;
+}
+.addtask h1{
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+}
+
+.addtask span{
+    font-size: 18px;
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+    position: absolute;
+    right: 35px;
+    top: -5px;
+}
+
+.addtask form{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    margin: 40px;
+}
+
+.addtask form input[type="text"]{
+    border: none;
+    outline: none;
+    background-color: var(--tertially-color);
+    border: 1px solid var(--primary-color);
+    margin: 0 20px 10px;
+    height: 30px;
+    font-size: 20px;
+    text-indent: 4px;
+}
+.addtask select{
+    appearance: none;
+    border: none;
+    outline: none;
+    background-color: var(--tertially-color);
+    border: 1px solid var(--primary-color);
+    margin: 0 20px 10px;
+    font-size: 20px;
+    font-weight: 300;
+    font-family: 'Poppins',Arial, Helvetica, sans-serif;
+    text-indent: 4px;
+}
+.addtask p{
+    margin: 0 20px 10px;
+    font-size: 16px;
+}
+.showtaskadd{
+    visibility: visible;
+}
+.addtask button{
+    margin: 20px;
+    padding: 8px 0;
+    font-size: 18px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+.addtask button:hover{
+    border-radius: 6px;
+}
+.canceladd{
+    cursor: pointer;
+    color: var(--pending);
+}
+
+
+
 
 
