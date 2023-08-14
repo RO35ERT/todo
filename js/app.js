@@ -4,6 +4,98 @@ canceladd = document.querySelector('.canceladd');
 taskname = document.querySelector('#taskname');
 add = document.querySelector('.add');
 taskcategories = document.querySelector('.taskcategories');
+tasktable = document.querySelector('.tasktable');
+
+const pending = 2;
+const completed = 1;
+
+const getUserUrl = "http://localhost:8080/api/v3/getUser/c@bot.com";
+
+async function getUser(url){
+    const response = await fetch(url);
+    const data = await response.json();
+    show(data); 
+}
+
+getUser(getUserUrl);
+
+
+function show(data){
+    let tab = `
+    <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    `;
+
+    let activeStatus;
+    for(let i of data["tasks"]){
+
+        const isCompleted = i["status"]==="Completed";
+        const textDecoration = isCompleted ? "line-through":"none";
+        tab += `
+        <tr>
+            <td>
+                <input type="checkbox" id=${i["id"]} ${isCompleted?'checked':''}>
+            </td>
+            <td style= "text-decoration: ${textDecoration}">${i["taskName"]}</td>
+            <td style="text-decoration: ${textDecoration}">${i["categoryName"]}</td>
+            <td>${i["status"]}</td>
+            <td><button class="edit">
+                <span class="material-symbols-outlined">
+                    edit
+                </span>
+            </button></td>
+            <td><button class="delete">
+                <span class="material-symbols-outlined">
+                    delete
+                </span>
+            </button></td>
+        </tr>
+        `;
+        
+        activeStatus = i["status"];
+        console.log(activeStatus);        
+    }
+    tasktable.innerHTML = tab;
+
+
+    
+
+    const allTasks = data["tasks"]; 
+    tasktable.addEventListener('change',(e)=>{
+        const elParent = e.target.parentNode.parentNode;
+        let status = elParent.children[3];
+        if(e.target.checked){
+            let taskId = e.target.getAttribute('id');
+            let statusUrl = `http://localhost:8080/api/v3/changeStatus/${taskId}/${completed}`;
+            put(statusUrl);
+            getUser(getUserUrl);
+            
+        }else{
+            let taskId = e.target.getAttribute('id');
+            let statusUrl = `http://localhost:8080/api/v3/changeStatus/${taskId}/${pending}`;
+            put(statusUrl);
+            getUser(getUserUrl);
+        }
+        
+    })
+
+
+
+    async function put(url){
+        const response = await fetch(url,{
+            method: 'PUT',
+            headers: {
+                'Content-Type':'application/json'
+            }
+        });
+    }
+}
 
 addtaskbtn.addEventListener('click',()=>{
     addtask.classList.add('showtaskadd');
@@ -15,9 +107,9 @@ canceladd.addEventListener('click',()=>{
     taskname.value="";
 })
 
-tasktable = document.querySelector('.tasktable');
 
 
+    
 
 add.addEventListener('click',(e)=>{
     e.preventDefault();
@@ -31,6 +123,7 @@ add.addEventListener('click',(e)=>{
 
     tdbtnedit = document.createElement('button');
     tdbtndelete = document.createElement('button');
+
 
     spanedit = document.createElement('span')
     spandelete = document.createElement('span')
@@ -48,26 +141,6 @@ add.addEventListener('click',(e)=>{
 
     tdt1.innerText = taskcategories.value;
     tdt.innerText = taskname.value;
-
-    if(taskcategories.value=='office'){
-        trw.style.backgroundColor = "#118111";
-        tdbtndelete.style.backgroundColor= "#118111";
-        tdbtnedit.style.backgroundColor="#118111";
-    }else if(taskcategories.value=='school'){
-        trw.style.backgroundColor = "#ffff11";
-        tdbtndelete.style.backgroundColor= "#ffff11";
-        tdbtnedit.style.backgroundColor="#ffff11";
-    }else if(taskcategories.value=='work'){
-        trw.style.backgroundColor = "#ff1111";
-        tdbtndelete.style.backgroundColor= "#ff1111";
-        tdbtnedit.style.backgroundColor="#ff1111";
-        tdbtnedit.style.color="#f1f1f1";
-        tdbtndelete.style.color="#f1f1f1";
-        tdt.style.color="#f1f1f1";
-        tdt1.style.color="#f1f1f1";
-    }else{
-
-    }
 
 
     tdbtnedit.appendChild(spanedit);
@@ -93,10 +166,12 @@ add.addEventListener('click',(e)=>{
 const deletebtns = document.querySelectorAll('.delete');
 
 
+
 editTask = document.querySelector('.edittask');
 editedtaskname = document.querySelector('#editedtaskname');
 let editEl;
 let parent;
+let btnEditParent;
 tasktable.addEventListener('click',(e)=>{
     if(e.target.innerText=='delete'){
         const deleteEl = e.target.parentElement.parentElement.parentElement;
@@ -104,11 +179,11 @@ tasktable.addEventListener('click',(e)=>{
     }else if(e.target.innerText=='edit'){
         editEl = e.target.parentElement.parentElement.parentElement;
         parent = e.target.parentElement.parentElement.parentElement;
+        btnEditParent= e.target.parentElement;
         editTask.classList.add('showedit');
         editedtaskname.value=editEl.childNodes[1].innerText;
         taskcategories.value=editEl.childNodes[2].nextElementSibling.innerText;
         console.log(editEl.childNodes[2].nextElementSibling.innerText);
-        
     }
 })
 
@@ -123,32 +198,21 @@ save = document.querySelector('.saveEditedTask');
 
 
 editedtaskcategories = document.querySelector('.editedtaskcategories');
+
 save.addEventListener('click',(e)=>{
     e.preventDefault();
     editEl.childNodes[1].innerText=editedtaskname.value;
     editEl.childNodes[2].nextElementSibling.innerText=editedtaskcategories.value;
 
-    editTask.classList.remove('showedit');
-
-    if(editedtaskcategories.value=='office'){
-        parent.style.backgroundColor = "#118111";
-        tdbtndelete.style.backgroundColor= "#118111";
-        tdbtnedit.style.backgroundColor="#118111";
-    }else if(editedtaskcategories.value=='school'){
-        parent.style.backgroundColor = "#ffff11";
-        tdbtndelete.style.backgroundColor= "#ffff11";
-        tdbtnedit.style.backgroundColor="#ffff11";
-    }else if(editedtaskcategories.value=='work'){
-        parent.style.backgroundColor = "#ff1111";
-        tdbtndelete.style.backgroundColor= "#ff1111";
-        tdbtnedit.style.backgroundColor="#ff1111";
-        tdbtnedit.style.color="#f1f1f1";
-        tdbtndelete.style.color="#f1f1f1";
-        tdt.style.color="#f1f1f1";
-        tdt1.style.color="#f1f1f1";
-    }else{
-
-    }
-
-    console.log(parent);
+    console.log(editEl)
+    editTask.classList.remove('showedit'); 
 })
+
+
+
+
+
+
+
+
+

@@ -22,6 +22,7 @@ body{
     color: var(--primary-color);
     font-weight: 500;
     background-color: var(--tertially-color);
+    width: 100vw;
 }
 
 .container{
@@ -104,8 +105,8 @@ a{
 }
 
 .tasks{
-    width: 75%;
     box-shadow: -1px 0 3px var(--primary-color);
+    margin: 0 20px;
 }
 
 .tasks table{
@@ -295,5 +296,59 @@ a{
     color: var(--pending);
 }
 
+@media only screen and (max-width: 600px){
+    body{
+        width: 100vw;
+    }
+    h1,h2,h3{
+        font-size: 10px;
+    }
+
+
+    .addtaskbtn{
+        padding: 3px 8px;
+    }
+
+    .addtask{
+        width: 300px;
+        left:50%;
+        right: 50%;
+        transform: translate(-50%,-50%);
+        top: 250px;
+    }
+
+    .addtask form{
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        margin: 0 40px;
+    }
+
+    .edittask{
+        width: 300px;
+        left:50%;
+        right: 50%;
+        transform: translate(-50%,-50%);
+        top: 250px;
+    }
+
+    .edittask form{
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        margin: 0 40px;
+    }
+
+    .edittask span{
+        font-size: 18px;
+        text-align: center;
+        padding: 15px;
+        margin: 10px;
+        position: absolute;
+        right: 35px;
+        bottom: 35px;
+    }
+
+}
 
 
