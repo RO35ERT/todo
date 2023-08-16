@@ -1,3 +1,9 @@
+
+if(sessionStorage.getItem("loggedIn")=="false"){
+    window.location.replace("login.html");
+}
+
+
 addtask = document.querySelector('.addtask');
 addtaskbtn = document.querySelector('.addtaskbtn');
 canceladd = document.querySelector('.canceladd');
@@ -6,10 +12,18 @@ add = document.querySelector('.add');
 taskcategories = document.querySelector('.taskcategories');
 tasktable = document.querySelector('.tasktable');
 
+const logout = document.querySelector('.logout');
+
+logout.addEventListener('click',(e)=>{
+    e.preventDefault();
+    sessionStorage.setItem("loggedIn","false");
+    sessionStorage.removeItem("email");
+    window.location.replace("login.html");
+});
+
 const pending = 2;
 const completed = 1;
-
-const getUserUrl = "http://localhost:8080/api/v3/getUser/c@bot.com";
+const getUserUrl = `http://localhost:8080/api/v3/getUser/${sessionStorage.getItem("email")}`;
 
 async function getUser(url){
     const response = await fetch(url);
@@ -58,16 +72,12 @@ function show(data){
         </tr>
         `;
         
-        activeStatus = i["status"];
-        console.log(activeStatus);        
+        activeStatus = i["status"];       
     }
     tasktable.innerHTML = tab;
 
-
-    
-
-    const allTasks = data["tasks"]; 
     tasktable.addEventListener('change',(e)=>{
+        e.preventDefault();
         const elParent = e.target.parentNode.parentNode;
         let status = elParent.children[3];
         if(e.target.checked){

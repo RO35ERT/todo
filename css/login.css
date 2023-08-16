@@ -15,7 +15,7 @@ body{
 
 .container{
     background-color: #ffefd5;
-    box-shadow: 0 0 10px #010101;
+    box-shadow: 0 0 9px #010101;
     border-radius: 5px;
     padding: 20px;
 }
@@ -23,6 +23,12 @@ h1{
     font-size: 18px;
     text-align: center;
     margin: 20px 0;
+}
+
+.error{
+    color: red;
+    font-size: 13px;
+    margin-bottom: 5px;
 }
 
 form{
@@ -33,8 +39,8 @@ form{
 form input[type="text"],
 form input[type="password"]{
     margin: 0 0 10px 0;
+    text-indent: 10px;
     outline: none;
-    text-indent: 3px;
     height: 35px;
     color: #080808;
     font-size: 16px;
@@ -42,6 +48,10 @@ form input[type="password"]{
     background-color: #ffefd5;
     border: 1px solid #080808;
     border-radius: 3px;
+}
+form input[type="text"]:focus,
+form input[type="password"]:focus{
+    border: 2px solid #27a127;
 }
 
 .pass{
@@ -62,4 +72,5 @@ form input[type="password"]{
     font-size: 20px;
     border-radius: 3px;
     color: #f1f1f1;
+    cursor: pointer;
 }
