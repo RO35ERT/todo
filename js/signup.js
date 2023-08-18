@@ -16,7 +16,6 @@ formControl.addEventListener("submit",(e)=>{
     fname.value.trim()==null || lname.value.trim()==null||email.value.trim()==null || password.value.trim()==null||comfirmPass.value.trim()==null
     ){
         erroMsg.innerHTML = "one or more field is empty!";
-
         return;
     }else{
         if(password.value !==comfirmPass.value){
@@ -24,16 +23,24 @@ formControl.addEventListener("submit",(e)=>{
             return;
         }else{
             if(isValidEmail(email.value)){
-                erroMsg.innerHTML="";
-                const user = "http://localhost:8080/api/v3/createUser";
-                saveUser(user);
-                window.location.replace("index.html");
+                if(verifyPasswordLen(password.value)){
+                    erroMsg.innerHTML="";
+                    const user = "http://localhost:8080/api/v3/createUser";
+                    saveUser(user);
+                    window.location.replace("index.html");
+                }
             }else{
                 erroMsg.innerHTML = "Not a valid email"
             }
         }
     }
 })
+
+function verifyPasswordLen(password){
+    if(password.length <=8){
+        erroMsg.innerHTML = "Password must be 8 or more charecters";
+    }
+}
 
 async function saveUser(url) {
     const response = fetch(url,{

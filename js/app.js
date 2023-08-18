@@ -23,7 +23,7 @@ logout.addEventListener('click',(e)=>{
 
 const pending = 2;
 const completed = 1;
-const getUserUrl = `http://localhost:8080/api/v3/getUser/${sessionStorage.getItem("email")}`;
+const getUserUrl = `http://localhost:8080/api/v3/getUserById/${sessionStorage.getItem("id")}`;
 
 async function getUser(url){
     const response = await fetch(url);
@@ -96,7 +96,6 @@ function show(data){
     })
 
 
-
     async function put(url){
         const response = await fetch(url,{
             method: 'PUT',
@@ -119,58 +118,41 @@ canceladd.addEventListener('click',()=>{
 
 
 
-    
+
 
 add.addEventListener('click',(e)=>{
     e.preventDefault();
-
-
-    trw = document.createElement('tr');
-    tdt = document.createElement('td');
-    tdt1 =document.createElement('td');
-    tdt2 = document.createElement('td');
-    tdt3 = document.createElement('td');
-
-    tdbtnedit = document.createElement('button');
-    tdbtndelete = document.createElement('button');
-
-
-    spanedit = document.createElement('span')
-    spandelete = document.createElement('span')
-
-
+    taskname.value;
+    const taskValue = taskcategories.value;
+    let currentCat;
+    if(taskValue=="personal"){
+        currentCat = 1;
+    }else if(taskValue=="office"){
+        currentCat = 2;
+    }else if(taskValue=="work"){
+        currentCat = 3
+    }else{
+        currentCat = 4;
+    }
+    const createTTaskUrl = `http://localhost:8080/api/v3/${sessionStorage.getItem("id")}/${currentCat}/2/createTask`;
+    createTask(createTTaskUrl);
     addtask.classList.remove('showtaskadd');
-    
-    tasktable.appendChild(trw);
-    trw.appendChild(tdt);
-    trw.appendChild(tdt1);
-    trw.appendChild(tdt2);
-    trw.appendChild(tdt3);
-    tdt2.appendChild(tdbtnedit)
-    tdt3.appendChild(tdbtndelete)
-
-    tdt1.innerText = taskcategories.value;
-    tdt.innerText = taskname.value;
-
-
-    tdbtnedit.appendChild(spanedit);
-    tdbtndelete.appendChild(spandelete);
-
-    tdbtndelete.classList.add('delete');
-    tdbtnedit.classList.add('edit');
-
-
-
-    spanedit.innerText = 'edit';
-    spandelete.innerText = 'delete';
-
-    spanedit.classList.add('material-symbols-outlined')
-    spandelete.classList.add('material-symbols-outlined')
-
-    taskcategories.value="office";
-    taskname.value="";
-
+    window.location.reload();
 })
+
+
+async function createTask(url){
+    const response = fetch(url,{
+        method: 'POST',
+            headers: {
+                'Accept':"application/json",
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                'taskName': taskname.value
+            })
+    })
+}
 
 
 const deletebtns = document.querySelectorAll('.delete');

@@ -15,18 +15,18 @@ login.addEventListener('change',(e)=>{
 let getSingleUser = "";
 submit.addEventListener('click',(e)=>{
     e.preventDefault();
-    const userEmail = email.value;
+    const userEmail = email.value.toLowerCase();
     getSingleUser= `http://localhost:8080/api/v3/getUser/${userEmail}`;
     getSpecificUser(getSingleUser);
 
 })
 
 function getUser(data) {
-    const userEmail = email.value;
+    const userEmail = email.value.toLowerCase();
     const userPass = password.value;
-    if(authenticateUser(userEmail,data["email"],userPass,data["password"])){
+    if(authenticateUser(userEmail,data["email"],userPass,data["password"]) && data["isAuthenticated"]){
         sessionStorage.setItem("loggedIn","true");
-        sessionStorage.setItem("email",userEmail);
+        sessionStorage.setItem("id",data["id"]);
         window.location.href="main.html";
     }
 }   
